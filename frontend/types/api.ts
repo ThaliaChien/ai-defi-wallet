@@ -1,4 +1,4 @@
-﻿export type HealthResponse = {
+export type HealthResponse = {
   status: string;
   service: string;
   version: string;

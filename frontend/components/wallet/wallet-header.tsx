@@ -1,4 +1,6 @@
-﻿type WalletHeaderProps = {
+import { truncateAddress } from "@/lib/format";
+
+type WalletHeaderProps = {
   address: string | null;
   isConnected: boolean;
   isLoading: boolean;
@@ -14,29 +16,59 @@ export function WalletHeader({
   onConnect,
 }: WalletHeaderProps) {
   return (
-    <header className="hero-card wallet-header">
-      <div>
-        <p className="eyebrow">Stage 1 MVP</p>
-        <h1 className="hero-title">AI DeFi Wallet</h1>
-        <p className="hero-copy">
-          Simulate a wallet connection and preview a portfolio snapshot, protocol activity,
-          and an AI summary from mock backend data.
-        </p>
-        {isEmptyDemo ? (
-          <p className="hero-note">
-            Empty demo mode is active. Click connect to preview the empty state flow.
-          </p>
-        ) : null}
+    <header className="topbar-shell">
+      <div className="topbar-row">
+        <div className="brand-block">
+          <div className="brand-mark" aria-hidden="true">
+            AD
+          </div>
+          <div>
+            <p className="topbar-label">Institutional Portfolio Console</p>
+            <h1 className="topbar-title">AI DeFi Wallet</h1>
+          </div>
+        </div>
+
+        <div className="topbar-controls">
+          <span className="status-badge">Demo Network</span>
+          {isEmptyDemo ? <span className="status-badge muted">Empty Portfolio Mode</span> : null}
+          <button className="primary-button" onClick={onConnect} type="button">
+            {isLoading ? "Refreshing..." : isConnected ? "Refresh Portfolio" : "Connect Wallet"}
+          </button>
+        </div>
       </div>
 
-      <div className="wallet-actions">
-        <button className="primary-button" onClick={onConnect} type="button">
-          {isLoading ? "Loading..." : isConnected ? "Refresh wallet" : "Connect wallet"}
-        </button>
+      <div className="hero-panel">
+        <div className="hero-content">
+          <p className="eyebrow">Portfolio intelligence</p>
+          <h2 className="hero-title">Monitor assets, protocol exposure, and AI insights in one workspace.</h2>
+          <p className="hero-copy">
+            Built for portfolio review workflows. The current experience uses mock data, but the layout and information hierarchy are designed for a production-grade Web3 dashboard.
+          </p>
+        </div>
 
-        <div className="address-chip">
-          <span className="address-label">Current address</span>
-          <span className="address-value">{address ?? "Not connected"}</span>
+        <div className="hero-sidebar">
+          <div className="identity-card">
+            <span className="address-label">Connected address</span>
+            <strong className="identity-value">
+              {address ? truncateAddress(address) : "No wallet connected"}
+            </strong>
+            <p className="identity-description">
+              {address
+                ? "Portfolio data is sourced from the wallet overview endpoint."
+                : "Connect the demo wallet to load overview data."}
+            </p>
+          </div>
+
+          <div className="hero-stat-row">
+            <div className="hero-mini-card">
+              <span className="mini-label">Session</span>
+              <strong>{isConnected ? "Active" : "Idle"}</strong>
+            </div>
+            <div className="hero-mini-card">
+              <span className="mini-label">Coverage</span>
+              <strong>Wallet + Protocols + AI</strong>
+            </div>
+          </div>
         </div>
       </div>
     </header>
