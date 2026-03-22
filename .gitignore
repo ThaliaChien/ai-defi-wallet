@@ -1,17 +1,15 @@
-.DS_Store
-Thumbs.db
-
-node_modules/
-.next/
-out/
-dist/
-coverage/
-
+# Python
 .venv/
 __pycache__/
 .pytest_cache/
-.mypy_cache/
+backend/pytest-cache-files-*
+backend/uvicorn*.log
 
-.env
-.env.local
-*.pyc
+# Node / Next
+frontend/node_modules/
+frontend/.next/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
